@@ -1,59 +1,39 @@
-import React, { useRef, useState } from "react";
-import Banner from "../assest/Banner01.jpg";
+import React, { useEffect, useRef, useState } from "react";
+import Banner from "../assest/hero4.png";
 import Banner02 from "../assest/Banner021.jpg"
 
 const Hero = () => {
-    const imgSrc = [
-        {Banner:Banner},
-        {Banner:Banner02}
-    ]
-    const [scrollPosition, setScrollPosition] = useState(0);
-    const carouselRef = useRef(null);
-    const scrollLeft = () => {
-        if (scrollPosition > 0) {
-          setScrollPosition(scrollPosition - 1);
-        }
-      };
-      
-      const scrollRight = () => {
-        if (scrollPosition < imgSrc.length - 1) {
-          setScrollPosition(scrollPosition + 1);
-        }
-      };
+    const [isScrolled, setIsScrolled] = useState(false);
+  
+      useEffect(() => {
+        const handleScroll = () => {
+          setIsScrolled(window.scrollY > 10);
+        };
+        
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
     
   return (
     <>
 
-    <div className="  py-8 px-4  relative">
-    <button
-          className={` absolute md:left-[60px] left-10 top-[46%] tw-transform translate-y-1/2 z-10 bg-black bg-opacity-80 p-3 rounded-full text-white hover:bg-opacity-100 transition-all ${
-            scrollPosition <= 0 ? " cursor-not-allowed" : "opacity-100"
-          }`}
-          onClick={scrollLeft}
-          disabled={scrollPosition === 0}
+<section className={`relative h-screen bg-gray-900 `}  >
+        <div className="absolute inset-0 bg-gray-900 opacity-20"></div>
+        <div 
+          className="h-full bg-cover bg-center p-20 mt-18" 
+          style={{ backgroundImage: `url(${Banner})` }}
         >
-          <i className="fas fa-chevron-left"></i>
-        </button>
-      <div className=" h-screen w-full flex justify-center p-2 " ref={carouselRef}  style={{ scrollBehavior: "smooth" }}>
-        <div className=" w-[85%] h-[85%] mt-24 ">
-        
-        <img className=" rounded-md shadow-lg" src={imgSrc[scrollPosition]?.Banner} alt="" />
-      </div>
-    
-      </div>
-      <button
-          className={` absolute md:right-[60px] right-10 top-[53%] transform -translate-y-1/2 z-10 bg-black bg-opacity-80 p-3 rounded-full text-white hover:bg-opacity-100 transition-all ${
-            scrollPosition >= imgSrc.length - 1
-              ? "cursor-not-allowed"
-              : "opacity-100"
-          }`}
-          onClick={scrollRight}
-          disabled={scrollPosition >= imgSrc.length - 1}
-        >
-          <i className="fas fa-chevron-right"></i>
-        </button>
-      <h1>dcksjckjdh</h1>
-    </div>
+          <div className="container mx-auto px-4 h-full flex flex-col justify-center" >
+            <div className="max-w-lg text-white relative z-10">
+              <h1 className="text-6xl font-extrabold text-[#2B2B2B] leading-tight tracking-tight mb-6">Trendy & Catchy</h1>
+              <p className="text-xl font-medium text-[#5A5A5A] leading-relaxed tracking-wide mb-2">Soft, Stylish, and Made to Stand Out.</p>
+              <p className="text-xl font-semibold text-[#D97777] italic tracking-wide mb-6">high-quality fabric, and next-level comfort..</p>
+
+              <button className="bg-gray-800 text-white hover:bg-gray-700 px-6 py-3 rounded-lg font-semibold shadow-md transition duration-300 ease-in-out transform hover:scale-105">Shop Now</button>
+            </div>
+          </div>
+        </div>
+      </section>
      
     </>
   );

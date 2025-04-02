@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SortDropDown = () => {
+const SortDropDown = ({setSelectedSort , selectedSort}) => {
   return (
     <div className="relative">
     <select
